@@ -7,6 +7,7 @@
     "builders": [{
         "type": "amazon-ebs",
         "region": "{{user `aws_region`}}",
+	"vpc_id": "vpc-818ce8e8",
         "instance_type": "t2.micro",
         "ssh_username": "ec2-user",
         "ami_name": "{{user `aws_ami_name`}}",
