@@ -1,7 +1,7 @@
 {
     "variables": {
-        "aws_region": "us-east-2",
-        "aws_ami_name": "mySuperTest"
+        "aws_region": "{{env `AWS_REGION`}}",
+        "aws_ami_name": "amazon-linux_{{ timestamp }}"
     },
 
     "builders": [{
@@ -23,4 +23,17 @@
         }
     }],
 
+    "provisioners": [
+        {
+            "type": "shell",
+            "inline": [
+                "sudo yum update -y",
+				"sudo /usr/sbin/update-motd --disable",
+                "echo 'No unauthorized access permitted' | sudo tee /etc/motd",
+                "sudo rm /etc/issue",
+                "sudo ln -s /etc/motd /etc/issue",
+                "sudo yum install -y elinks screen"
+            ]
+        }
+    ]
 }
